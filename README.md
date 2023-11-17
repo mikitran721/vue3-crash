@@ -1,24 +1,9 @@
-# test-vue-app
+# CAI DAT
 
-## Project setup
-```
-npm install
-```
+- cai dat `npm i -g @vue/cli` se cai ver moi nhat
+- tao dung dung vue `vue create app-vue-name`
+- cai extension `VETUR` sd cho snippet
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+# VUE
 
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+- file co duoi `.vue`
