@@ -1,5 +1,10 @@
 <template>
-  <TodoItem v-for="todo in todos" v-bind:key="todo.id" v-bind:todoProps="todo" />
+  <TodoItem v-for="todo in todos" 
+  :key="todo.id" 
+  :todoProps="todo"
+  @item-completed="markComplete"
+  @delete-item="deleteTodo"
+  />
 </template>
 
 <script>
@@ -18,20 +23,36 @@ export default {
                 completed:false
             },
             {
-                id:1,
+                id:2,
                 title:'Viec 2',
                 completed:false
             },
             {
-                id:1,
+                id:3,
                 title:'Viec 3',
                 completed:true
             },
         ])
 
+        //function markComplete
+        const markComplete=(id)=>{
+            //luc nay todos = ref
+            todos.value = todos.value.map(todo =>{
+                if(todo.id === id) todo.completed=!todo.completed;
+                return todo;
+            })
+        }
+
+        //function deleteTodo
+        const deleteTodo=id=>{
+            todos.value = todos.value.filter(todo => todo.id !== id)
+        }
+
         //xuat khau data khai bao ben tren
         return {
             todos
+            , markComplete
+            , deleteTodo
         }
     }
 }

@@ -1,9 +1,9 @@
 <template>
   <!-- <p class="todo-item is-completed" :id="new_id">  -->
   <p :class="['todo-item', todoProps.completed ? 'is-completed' :'']">
-    <input type="checkbox" :checked="todoProps.completed"/>
+    <input @change="markItemCompleted" type="checkbox" :checked="todoProps.completed"/>
     {{ todoProps.title }}
-    <button class="del-btn">Delete</button>
+    <button class="del-btn" @click="deleteItem">Delete</button>
   </p>
 </template>
 
@@ -18,6 +18,23 @@ export default {
     //     new_id
     //   }
     // }
+    ,setup(props,context){
+      const markItemCompleted =()=>{
+        //goi function tu parent component
+        context.emit('item-completed',props.todoProps.id)
+        // console.log(props.todoProps)
+      }
+
+      const deleteItem=()=>{
+        //goi function tu parents
+        context.emit('delete-item',props.todoProps.id)
+      }
+
+      return {
+        markItemCompleted
+        , deleteItem
+      }
+    }
 }
 </script>
 
