@@ -7,7 +7,7 @@
 
 <script>
 import { ref } from 'vue';
-import {v4 as uuidv4} from 'uuid'
+// import {v4 as uuidv4} from 'uuid'
 
 export default {
     name:'AddTodo'
@@ -22,7 +22,7 @@ export default {
             event.preventDefault();
 
             const newItem={
-                id:uuidv4(),
+                // id:uuidv4(),
                 title:title.value,
                 completed:false
             }

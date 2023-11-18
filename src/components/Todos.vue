@@ -13,7 +13,9 @@
 
 <script>
 import { ref } from 'vue'; //su dung khoi diem
-import {v4 as uuidv4} from 'uuid'
+// import {v4 as uuidv4} from 'uuid'
+import axios from 'axios'
+
 import TodoItem from './TodoItem'
 import AddTodo from './AddTodo.vue';
 
@@ -22,23 +24,19 @@ export default {
     components:{TodoItem, AddTodo },
     setup(){
         //khai bao du lieu khoi diem
-        const todos=ref([
-            {
-                id:uuidv4(),
-                title:'Viec 1',
-                completed:false
-            },
-            {
-                id:uuidv4(),
-                title:'Viec 2',
-                completed:false
-            },
-            {
-                id:uuidv4(),
-                title:'Viec 3',
-                completed:true
-            },
-        ])
+        const todos=ref([])
+
+        const getAllTodos = async()=>{
+            try {
+                const res = await axios.get('https://jsonplaceholder.typicode.com/todos?_limit=5')
+
+                todos.value = res.data;
+            } catch (error) {
+                console.log(error)
+            }
+        }
+
+        getAllTodos();
 
         //function markComplete
         const markComplete=(id)=>{
@@ -50,13 +48,29 @@ export default {
         }
 
         //function deleteTodo
-        const deleteTodo=id=>{
-            todos.value = todos.value.filter(todo => todo.id !== id)
+        const deleteTodo= async (id)=>{
+            try {
+                //xoa o server
+                await axios.delete(`https://jsonplaceholder.typicode.com/todos/${id}`)
+
+                //xoa o client
+                todos.value = todos.value.filter(todo => todo.id !== id)
+
+            } catch (error) {
+                console.log(error)
+            }
         }
 
         //addTodo function
-        const addTodo = (newTodo)=>{
-            todos.value.push(newTodo)
+        const addTodo = async (newTodo)=>{
+            try {
+                const res = await axios.post(`https://jsonplaceholder.typicode.com/todos`,newTodo)
+
+                todos.value.push(res.data)
+            } catch (error) {
+                console.log(error)
+            }
+            // todos.value.push(newTodo)
         }
 
         //xuat khau data khai bao ben tren
@@ -65,6 +79,7 @@ export default {
             , markComplete
             , deleteTodo
             ,addTodo
+            // , getAllTodos
         }
     }
 }
