@@ -1,5 +1,5 @@
 <template>
-  <TodoItem v-for="todo in todos" v-bind:key="todo" v-bind:todoProps="todo" />
+  <TodoItem v-for="todo in todos" v-bind:key="todo.id" v-bind:todoProps="todo" />
 </template>
 
 <script>
@@ -11,7 +11,23 @@ export default {
     components:{TodoItem},
     setup(){
         //khai bao du lieu khoi diem
-        const todos=ref(['Viec 1','Viec 2','Viec 3'])
+        const todos=ref([
+            {
+                id:1,
+                title:'Viec 1',
+                completed:false
+            },
+            {
+                id:1,
+                title:'Viec 2',
+                completed:false
+            },
+            {
+                id:1,
+                title:'Viec 3',
+                completed:true
+            },
+        ])
 
         //xuat khau data khai bao ben tren
         return {
